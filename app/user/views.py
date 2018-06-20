@@ -73,3 +73,15 @@ def get_faces():
     faces=fileManager.get_faces(request.json)
     faces=userResource.faces_to_b64(faces, image_faces)
     return jsonify({'message': 'Success', 'faces':faces})
+
+@app_user.route('/verify_yml', methods=['GET'])
+def is_yml_valid():
+    return jsonify({'message':'Success', 'value':fileManager.is_valid_yml()})
+
+@app_user.route("/verify_users", methods=['GET'])
+def is_users_valid():
+    try:
+        fileManager.read_all_users_text()
+        return jsonify({'message': 'Success', 'value': True})
+    except:
+        return jsonify({'message': 'Success', 'value': False})
