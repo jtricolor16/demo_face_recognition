@@ -16,7 +16,7 @@
 		}
 
 		self.setCam = function(){
-			$http.get('/set_cam').
+			$http.get('/face_recognition/set_cam').
 			success(function(results){
 				self.camera.type=results.cameraType;
 				self.camera.ip=results.cameraIp;
@@ -35,7 +35,7 @@
 		self.setCam()
 
 		self.saveCam = function(){
-			$http.post('/save_cam', self.camera).
+			$http.post('/face_recognition/save_cam', self.camera).
 			success(function(results){
 				$log.log(results)
 				if(results.status=='True'){

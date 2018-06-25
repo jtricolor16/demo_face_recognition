@@ -25,7 +25,7 @@
 		}
 
 		self.loadFaces = function(){
-			$http.post('/load_faces', self.user.id)
+			$http.post('/face_recognition/load_faces', self.user.id)
 			.success(function(results){
 				$scope.imageFaces=self.adjustPathFace(results.faces);
 			}).error(function(error){
@@ -47,7 +47,7 @@
 			
 			self.activeVideo=false;
 			$timeout( function(){ 
-				$http.post('/add_image').
+				$http.post('/face_recognition/add_image').
 				success(function(results){
 					var image = new Image();
 					var url_image=results.image_face.substr(1,(results.image_face.length - 2));
@@ -66,7 +66,7 @@
 			
 			self.activeVideo=false;
 			$timeout( function(){ 
-				$http.post('/remove_image').
+				$http.post('/face_recognition/remove_image').
 				success(function(results){
 					$scope.imageFaces.shift();
 					self.startVideo();
@@ -90,12 +90,12 @@
 
 		self.saveUser = function(){
 			self.cleanVideo();
-			$http.post('/save_user', self.user).
+			$http.post('/face_recognition/save_user', self.user).
 			success(function(results){
 				self.user=undefined;
 				self.activeVideo=undefined;
 				alert('Seu identificador é: ' + results.id);
-				$location.path('/');
+				$location.path('/face_recognition');
 			}).
 			error(function(error){
 				$log.log(error)
@@ -104,10 +104,10 @@
 
 		self.editUser = function(){
 			self.cleanVideo();
-			$http.post('/edit_user', self.user).
+			$http.post('/face_recognition/edit_user', self.user).
 			success(function(results){
 				self.user=undefined;
-				$location.path('/');
+				$location.path('/face_recognition');
 			}).
 			error(function(error){
 				$log.log(error)
@@ -120,10 +120,10 @@
 
 		self.deleteUser = function(){
 			self.cleanVideo();
-			$http.delete('/delete_user/'+ self.user.id).
+			$http.delete('/face_recognition/delete_user/'+ self.user.id).
 			success(function(results){
 				self.user=undefined
-				$location.path('/')
+				$location.path('/face_recognition')
 			}).
 			error(function(error){
 				$log.log(error)

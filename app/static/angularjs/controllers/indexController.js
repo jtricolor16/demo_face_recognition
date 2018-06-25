@@ -15,34 +15,34 @@
 
 		self.register = function(){
 			delete $localStorage.user;
-			$http.get('/clear_image_faces')
-			$location.path('/register')
+			$http.get('/face_recognition/clear_image_faces')
+			$location.path('/face_recognition/register')
 		}
 
 		self.recognition = function(){
-			$location.path('/recognition')
+			$location.path('/face_recognition/recognition')
 		}
 
 		self.trainningMethod = function(){
 			self.trainning=false;
-			$http.post('/trainining_yml')
+			$http.post('/face_recognition/trainining_yml')
 			.success(function(){
 				self.trainning=true;
 				alert('YML treinado com sucesso!')
 				self.verifyYml();
-				$location.path('/')
+				$location.path('/face_recognition')
 			}).error(function(error){
 				$log.log(error);
 			})
 		}
 
 		self.search = function(){
-			$http.post('/search', self.user.id)
+			$http.post('/face_recognition/search', self.user.id)
 			.success(function(results){
 				self.userLoad=results.user
 				if(self.userLoad!=undefined){
 					$localStorage.user=self.userLoad
-					$location.path('/edit')
+					$location.path('/face_recognition/edit')
 				}
 			}).error(function(error){
 				self.message="User not found!"
@@ -59,15 +59,15 @@
 			if(document.getElementById("bg")!=undefined){
 				document.getElementById("bg").src = "";
 			}
-			$location.path('/');	
+			$location.path('/face_recognition');	
 		}
 
 		self.camConfig = function(){
-			$location.path('/configuration')
+			$location.path('/face_recognition/configuration')
 		}
 
 		self.verifyYml = function(){
-		    $http.get('/verify_yml')
+		    $http.get('/face_recognition/verify_yml')
 			.success(function(results){
 				if(results.value==true)
 				    self.blockRecognition=true;
@@ -81,7 +81,7 @@
 		}
 
 		self.verifyUsers = function(){
-		    $http.get('/verify_users')
+		    $http.get('/face_recognition/verify_users')
 			.success(function(results){
 				if(results.value==true)
 				    self.blockTrainning=true;

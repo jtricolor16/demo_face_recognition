@@ -10,7 +10,7 @@
 					$localStorage.camera.type='local'
 				}
 			}
-			return $http.post('/add_cam', $localStorage.camera)
+			return $http.post('/face_recognition/add_cam', $localStorage.camera)
 		};
 
 		return{
